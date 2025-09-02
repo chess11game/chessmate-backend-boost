@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase, type Project } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, type Project } from '@/lib/supabase'
 
 export const useProjects = () => {
   const [projects, setProjects] = useState<Project[]>([])
@@ -7,6 +7,11 @@ export const useProjects = () => {
   const [error, setError] = useState<string | null>(null)
 
   const fetchProjects = async () => {
+    if (!isSupabaseConfigured() || !supabase) {
+      setError('Supabase not configured')
+      setLoading(false)
+      return
+    }
     try {
       setLoading(true)
       const { data, error } = await supabase

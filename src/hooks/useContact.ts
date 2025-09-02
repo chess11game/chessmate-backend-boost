@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase, type ContactForm } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, type ContactForm } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 
 export const useContact = () => {
@@ -7,6 +7,14 @@ export const useContact = () => {
   const { toast } = useToast()
 
   const submitContact = async (formData: Omit<ContactForm, 'id' | 'created_at'>) => {
+    if (!isSupabaseConfigured() || !supabase) {
+      toast({
+        title: "Backend not configured",
+        description: "Please connect to Supabase to enable contact form functionality.",
+        variant: "destructive",
+      })
+      return false
+    }
     setLoading(true)
     try {
       const { error } = await supabase

@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
-import { supabase, type Project, type ContactForm } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, type Project, type ContactForm } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 
 const AdminDashboard = () => {
@@ -20,11 +20,31 @@ const AdminDashboard = () => {
   const { toast } = useToast()
 
   useEffect(() => {
-    fetchContacts()
-    fetchProjects()
+    if (isSupabaseConfigured()) {
+      fetchContacts()
+      fetchProjects()
+    }
   }, [])
 
+  if (!isSupabaseConfigured()) {
+    return (
+      <div className="container mx-auto px-6 py-8">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Admin Dashboard</h1>
+          <p className="text-muted-foreground mb-8">
+            Please connect to Supabase to access admin features.
+          </p>
+          <Button variant="hero" size="lg">
+            Connect Supabase
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   const fetchContacts = async () => {
+    if (!supabase) return
+    
     const { data, error } = await supabase
       .from('contacts')
       .select('*')
@@ -39,6 +59,8 @@ const AdminDashboard = () => {
   }
 
   const fetchProjects = async () => {
+    if (!supabase) return
+    
     const { data, error } = await supabase
       .from('projects')
       .select('*')
@@ -53,6 +75,8 @@ const AdminDashboard = () => {
   }
 
   const addProject = async () => {
+    if (!supabase) return
+    
     if (!newProject.title || !newProject.description) {
       toast({
         title: "Missing fields",
@@ -91,6 +115,8 @@ const AdminDashboard = () => {
   }
 
   const deleteProject = async (id: string) => {
+    if (!supabase) return
+    
     const { error } = await supabase
       .from('projects')
       .delete()
