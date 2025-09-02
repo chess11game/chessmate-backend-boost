@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -5,8 +6,40 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Navigation from "@/components/Navigation";
 import { Link } from "react-router-dom";
+import { useContact } from "@/hooks/useContact";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: ''
+  });
+  
+  const { submitContact, loading } = useContact();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const success = await submitContact(formData);
+    if (success) {
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: ''
+      });
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -31,46 +64,65 @@ const Contact = () => {
               {/* Contact Form */}
               <Card className="p-8 soft-shadow">
                 <h2 className="text-3xl font-bold mb-6">Send us a Message</h2>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" placeholder="John" />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" placeholder="Doe" />
-                    </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <Label htmlFor="name">Full Name</Label>
+                    <Input 
+                      id="name" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your full name" 
+                      required
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" />
+                    <Input 
+                      id="email" 
+                      name="email"
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com" 
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input 
+                      id="phone" 
+                      name="phone"
+                      type="tel" 
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+91 1234567890" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="company">Company (Optional)</Label>
-                    <Input id="company" placeholder="Your Company" />
-                  </div>
-                  <div>
-                    <Label htmlFor="service">Service Interested In</Label>
-                    <select className="w-full px-3 py-2 border border-input rounded-md bg-background">
-                      <option>Select a service</option>
-                      <option>Web Development</option>
-                      <option>Brand Identity</option>
-                      <option>Mobile App</option>
-                      <option>Digital Marketing</option>
-                      <option>Consulting</option>
-                    </select>
+                    <Input 
+                      id="company" 
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Your company" 
+                    />
                   </div>
                   <div>
                     <Label htmlFor="message">Message</Label>
                     <Textarea 
                       id="message" 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
                       placeholder="Tell us about your project..."
                       className="min-h-[120px]"
+                      required
                     />
                   </div>
-                  <Button variant="hero" size="lg" className="w-full">
-                    Send Message
+                  <Button variant="hero" size="lg" className="w-full" type="submit" disabled={loading}>
+                    {loading ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Card>
