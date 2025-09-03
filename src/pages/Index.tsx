@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import { Link } from "react-router-dom";
+import { TrackableCard } from "@/components/TrackableCard";
+import { TrackableButton } from "@/components/TrackableButton";
 import designIcon from "@/assets/design-icon.png";
 import innovationIcon from "@/assets/innovation-icon.png";
 import rocketIcon from "@/assets/rocket-icon.png";
@@ -33,14 +35,14 @@ const Index = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/get-started">
-                  <Button variant="hero" size="lg" className="text-lg px-8 py-6">
+                  <TrackableButton variant="hero" size="lg" className="text-lg px-8 py-6" trackingEffect="glow">
                     Get Started
-                  </Button>
+                  </TrackableButton>
                 </Link>
                 <Link to="/portfolio">
-                  <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                  <TrackableButton variant="outline" size="lg" className="text-lg px-8 py-6" trackingEffect="ripple">
                     View Work
-                  </Button>
+                  </TrackableButton>
                 </Link>
               </div>
             </div>
@@ -48,27 +50,30 @@ const Index = () => {
             {/* Floating Elements */}
             <div className="mt-16 relative">
               <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer">
+                <TrackableCard className="p-6 text-center card-gradient soft-shadow animate-float group cursor-pointer" glowEffect>
                   <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
                     <img src={designIcon} alt="Design" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                   </div>
                   <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Design</h3>
                   <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
-                </Card>
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer" style={{animationDelay: '1s'}}>
+                </TrackableCard>
+                <TrackableCard className="p-6 text-center card-gradient soft-shadow animate-float group cursor-pointer" glowEffect style={{animationDelay: '1s'}}>
                   <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
                     <img src={innovationIcon} alt="Innovation" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                   </div>
                   <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Innovate</h3>
                   <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
-                </Card>
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer" style={{animationDelay: '2s'}}>
+                </TrackableCard>
+                <TrackableCard className="p-6 text-center card-gradient soft-shadow animate-float group cursor-pointer" glowEffect style={{animationDelay: '2s'}}>
                   <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
                     <img src={rocketIcon} alt="Create" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                   </div>
                   <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Create</h3>
                   <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
-                </Card>
+                </TrackableCard>
               </div>
             </div>
           </div>
@@ -133,21 +138,22 @@ const Index = () => {
                 { title: "Mobile App", desc: "UI/UX design for fitness tracking app", link: "/project/3", icon: mobileIcon },
                 { title: "Marketing Campaign", desc: "Creative campaign for product launch", link: "/portfolio", icon: analyticsIcon }
               ].map((item, index) => (
-                <Card key={index} className="p-6 soft-shadow hover:scale-105 hover:-translate-y-2 transition-all duration-300 group cursor-pointer">
-                  <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden group-hover:bg-gradient-to-br group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
-                    <div className="w-16 h-16 group-hover:scale-110 transition-transform duration-300">
+                <TrackableCard key={index} className="p-6 soft-shadow group cursor-pointer" glowEffect>
+                  <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden group-hover:bg-gradient-to-br group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-500">
+                    <div className="w-16 h-16 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                       <img src={item.icon} alt={item.title} className="w-full h-full object-contain drop-shadow-lg" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 border-2 border-primary/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4 group-hover:text-foreground/80 transition-colors">{item.desc}</p>
+                  <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground mb-4 group-hover:text-foreground/80 transition-colors duration-300">{item.desc}</p>
                   <Link to={item.link}>
-                    <Button variant="outline" size="sm" className="w-full group-hover:border-primary group-hover:text-primary transition-colors">
+                    <TrackableButton variant="outline" size="sm" className="w-full" trackingEffect="ripple">
                       View Project
-                    </Button>
+                    </TrackableButton>
                   </Link>
-                </Card>
+                </TrackableCard>
               ))}
             </div>
           </div>
@@ -163,9 +169,9 @@ const Index = () => {
             
             <div className="max-w-md mx-auto">
               <Link to="/contact">
-                <Button variant="hero" size="lg" className="w-full mb-8">
+                <TrackableButton variant="hero" size="lg" className="w-full mb-8" trackingEffect="pulse">
                   Send Message
-                </Button>
+                </TrackableButton>
               </Link>
               
               <div className="grid grid-cols-3 gap-6">
