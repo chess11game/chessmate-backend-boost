@@ -2,6 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import { Link } from "react-router-dom";
+import designIcon from "@/assets/design-icon.png";
+import innovationIcon from "@/assets/innovation-icon.png";
+import rocketIcon from "@/assets/rocket-icon.png";
+import webIcon from "@/assets/web-icon.png";
+import mobileIcon from "@/assets/mobile-icon.png";
+import analyticsIcon from "@/assets/analytics-icon.png";
+import emailIcon from "@/assets/email-icon.png";
+import phoneIcon from "@/assets/phone-icon.png";
+import locationIcon from "@/assets/location-icon.png";
 
 const Index = () => {
   return (
@@ -39,17 +48,26 @@ const Index = () => {
             {/* Floating Elements */}
             <div className="mt-16 relative">
               <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float">
-                  <div className="text-4xl mb-4">🎨</div>
-                  <h3 className="font-semibold">Design</h3>
+                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer">
+                  <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
+                    <img src={designIcon} alt="Design" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Design</h3>
+                  <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
                 </Card>
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float" style={{animationDelay: '1s'}}>
-                  <div className="text-4xl mb-4">💡</div>
-                  <h3 className="font-semibold">Innovate</h3>
+                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer" style={{animationDelay: '1s'}}>
+                  <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
+                    <img src={innovationIcon} alt="Innovation" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Innovate</h3>
+                  <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
                 </Card>
-                <Card className="p-6 text-center card-gradient soft-shadow animate-float" style={{animationDelay: '2s'}}>
-                  <div className="text-4xl mb-4">🚀</div>
-                  <h3 className="font-semibold">Create</h3>
+                <Card className="p-6 text-center card-gradient soft-shadow animate-float hover:scale-105 transition-all duration-300 group cursor-pointer" style={{animationDelay: '2s'}}>
+                  <div className="w-20 h-20 mx-auto mb-4 relative overflow-hidden rounded-xl group-hover:rotate-12 transition-transform duration-300">
+                    <img src={rocketIcon} alt="Create" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Create</h3>
+                  <div className="mt-2 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-300 mx-auto"></div>
                 </Card>
               </div>
             </div>
@@ -110,21 +128,22 @@ const Index = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { title: "Brand Identity", desc: "Complete visual identity for tech startup", link: "/project/1" },
-                { title: "Web Design", desc: "Modern e-commerce platform redesign", link: "/project/2" },
-                { title: "Mobile App", desc: "UI/UX design for fitness tracking app", link: "/project/3" },
-                { title: "Marketing Campaign", desc: "Creative campaign for product launch", link: "/portfolio" }
+                { title: "Brand Identity", desc: "Complete visual identity for tech startup", link: "/project/1", icon: designIcon },
+                { title: "Web Design", desc: "Modern e-commerce platform redesign", link: "/project/2", icon: webIcon },
+                { title: "Mobile App", desc: "UI/UX design for fitness tracking app", link: "/project/3", icon: mobileIcon },
+                { title: "Marketing Campaign", desc: "Creative campaign for product launch", link: "/portfolio", icon: analyticsIcon }
               ].map((item, index) => (
-                <Card key={index} className="p-6 soft-shadow hover:scale-105 transition-all duration-300 group">
-                  <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg mb-4 flex items-center justify-center">
-                    <div className="text-3xl">
-                      {index === 0 ? "🎨" : index === 1 ? "🌐" : index === 2 ? "📱" : "📊"}
+                <Card key={index} className="p-6 soft-shadow hover:scale-105 hover:-translate-y-2 transition-all duration-300 group cursor-pointer">
+                  <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden group-hover:bg-gradient-to-br group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
+                    <div className="w-16 h-16 group-hover:scale-110 transition-transform duration-300">
+                      <img src={item.icon} alt={item.title} className="w-full h-full object-contain drop-shadow-lg" />
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4">{item.desc}</p>
+                  <p className="text-sm text-muted-foreground mb-4 group-hover:text-foreground/80 transition-colors">{item.desc}</p>
                   <Link to={item.link}>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button variant="outline" size="sm" className="w-full group-hover:border-primary group-hover:text-primary transition-colors">
                       View Project
                     </Button>
                   </Link>
@@ -149,18 +168,24 @@ const Index = () => {
                 </Button>
               </Link>
               
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-2xl mb-2">📧</div>
-                  <div className="text-sm text-muted-foreground">hhog68250@gmail.com</div>
+              <div className="grid grid-cols-3 gap-6">
+                <div className="text-center group cursor-pointer hover:scale-105 transition-transform duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 relative">
+                    <img src={emailIcon} alt="Email" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-md" />
+                  </div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">hhog68250@gmail.com</div>
                 </div>
-                <div>
-                  <div className="text-2xl mb-2">📱</div>
-                  <div className="text-sm text-muted-foreground">+91 9516317257</div>
+                <div className="text-center group cursor-pointer hover:scale-105 transition-transform duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 relative">
+                    <img src={phoneIcon} alt="Phone" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-md" />
+                  </div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">+91 9516317257</div>
                 </div>
-                <div>
-                  <div className="text-2xl mb-2">📍</div>
-                  <div className="text-sm text-muted-foreground">Pune, Maharashtra</div>
+                <div className="text-center group cursor-pointer hover:scale-105 transition-transform duration-300">
+                  <div className="w-12 h-12 mx-auto mb-3 relative">
+                    <img src={locationIcon} alt="Location" className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-md" />
+                  </div>
+                  <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Pune, Maharashtra</div>
                 </div>
               </div>
             </div>
